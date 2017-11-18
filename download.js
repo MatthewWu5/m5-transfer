@@ -1,8 +1,9 @@
+//UI by webpack-web-server list directory, inspire by vue-swipe build 
 var app = require('express')();
 var http = require('http').Server(app);
 var path = require('path');
 var fs = require('fs');
-var port = process.env.PORT || 80;
+var port = process.env.PORT || 8080;
 
 http.listen(port, function () {
     console.log('listening on *:' + port);
