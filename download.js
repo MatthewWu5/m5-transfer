@@ -12,7 +12,7 @@ http.listen(port, function () {
 app.get('/list', function (req, res) {
     if (fs.existsSync(downloadFolder)) {
         var dirList = fs.readdirSync(downloadFolder);
-        var returnHtml;
+        var returnHtml = '';
         dirList.forEach(function (fileName) {
             returnHtml += `<div><a target="#blank" href="${'/d/' + fileName}">${fileName}</a></div>`;
         });
@@ -25,7 +25,7 @@ app.get('/list', function (req, res) {
 
 
 app.get('/d/*', function (req, res) {
-    var file = downloadFolder + req.url.replace('/d', '');
+    var file = downloadFolder + decodeURI(req.url).replace('/d', '');
     if (fs.existsSync(file)) {
         var fileName = path.basename(file);
         res.setHeader('Content-disposition', 'attachment; filename=' + fileName);
