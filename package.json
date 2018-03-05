@@ -5,7 +5,8 @@
   "main": "download.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node download.js"
+    "start": "live-server ./ --port=8111",
+    "node-start": "node download.js"
   },
   "author": "",
   "license": "ISC",
