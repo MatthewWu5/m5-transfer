@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+    <style>
+        /*#list {
+            color: red;
+        }
+
+        .foo.c1.c2.c3.c4.c5.c6.c7.c8.c9.c10 {
+            color: yellow;
+        }*/
+    </style>
+</head>
+
+<body>
+    <!--<iframe src="http://www.baidu.com" frameborder="0"></iframe>-->
+    <div class="c1" onclick="sendRequest()">
+        1
+        <div class="c2">2</div>
+    </div>
+    <div onclick="outSideWork()" id="outSide">
+        <div onclick="inSideWork()" id="inSide"></div>
+    </div>
+    <ul id="list" class="foo c1 c2 c3 c4 c5 c6 c7 c8 c9 c10">
+        <li>#0</li>
+        <li><span>#1</span></li>
+        <li>#2</li>
+        <li>#3</li>
+        <li>
+            <ul>
+                <li>#4</li>
+            </ul>
+        </li>
+        ...
+        <li><a href="//v2ex.com">#99998</a></li>
+        <li>#99999</li>
+        <li>#100000</li>
+    </ul>
+    <ul class="ul2"></ul>
+    <p></p>
+    <ul class="ul2"></ul>
+</body>
+<script>
+    $(document).ready(function () {
+        console.log('ready0')
+    })
+    window.onload = function () {
+        console.log('onload')
+    }
+    $(window).load(function () {
+        console.log('load2')
+    });
+    window.onload = function () {
+        console.log('onload2')
+    }
+    $(document).ready(function () {
+        console.log('ready')
+    })
+    $(document).ready(function () {
+        console.log('ready2')
+    })
+    $(function () {
+        console.log('ready3')
+    })
+    $(window).load(function () {
+        console.log('load')
+    })
+        ; (function () {
+            console.log('first0')
+        })(jQuery)
+        ; (function () {
+            console.log('first')
+        })($)
+    function sendRequest() {
+        console.log(event)
+        $.ajax('/test').done(function (res) {
+
+        })
+    }
+    function outSideWork() {
+        console.log('My name is outSide,I was working...');
+    }
+
+    function inSideWork() {
+        console.log('My name is inSide,I was working...');
+        if (event && event.stopPropagation)
+            event.stopPropagation()
+        else
+            window.event.cancelBubble = true
+    }
+
+
+    var list = document.getElementById('list')
+    list.addEventListener('click', function () {
+        console.log('test')
+    })
+    list.addEventListener('click', function () {
+        console.log('test2')
+    })
+    list.onclick = function () {
+        console.log('onclick')
+    }
+    list.onclick = function () {
+        console.log('onclick1')
+    }
+    $('#list').on('click', function () {
+        console.log('test3')
+    })
+    $('#list').on('click', function () {
+        console.log('test4')
+    })
+
+</script>
+
+</html>

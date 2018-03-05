@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    Cross page...
+    <script>
+        var xhr = new XMLHttpRequest()
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                console.log('raw js', xhr.responseText)
+            }
+        }
+        xhr.open('get', 'http://localhost:8000/cross1')
+        //xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xhr.send()
+
+        $.ajax({
+            url: 'http://localhost:8000/cross1',
+            //method: 'get',
+            dataType: 'jsonp',
+            //jsonpCallback: 'foo',
+            success: function (res) {
+                console.log('success', res)
+            },
+            error: function (res) {
+                console.log('error', res)
+            }
+        })
+
+        var jsonpBack = function (res) {
+            console.log('jsonpBack', res)
+        }
+
+        function addScriptTag(src) {
+            var script = document.createElement('script');
+            script.setAttribute("type", "text/javascript");
+            script.src = src;
+            document.body.appendChild(script);
+        }
+        // function foo(data) {
+        //     console.log('foo', data);
+        // }
+        window.onload = function () {
+            //addScriptTag('http://localhost:8000/cross1?callback=foo');
+        } //window.onload是为了让页面加载完成后再执行
+        
+    </script>
+</body>
+
+</html>

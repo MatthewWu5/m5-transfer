@@ -3,7 +3,7 @@ var http = require('http').Server(app);
 var path = require('path');
 var fs = require('fs');
 var downloadFolder = require('./config').downloadFolder;
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 8082;
 
 http.listen(port, function () {
     console.log('listening on *:' + port);
@@ -29,6 +29,7 @@ app.get('/d/*', function (req, res) {
     if (fs.existsSync(file)) {
         var fileName = path.basename(file);
         res.setHeader('Content-disposition', 'attachment; filename=' + fileName);
+        res.setHeader('Cache-Control', 'max-age=30')
         var fileStream = fs.createReadStream(file);
         fileStream.pipe(res);
     }
@@ -49,3 +50,16 @@ app.get('/d/*', function (req, res) {
 //         res.send('404');
 //     }
 // });
+
+app.get('/', function (req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.sendFile(__dirname + '/test.html')
+})
+
+app.get('/*', function (req, res) {
+    res.sendFile(__dirname + req.url)
+})
+
+app.post('/post', function (req, res) {
+
+})

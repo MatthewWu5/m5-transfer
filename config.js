@@ -1,3 +1,3 @@
 module.exports = {
-    downloadFolder: 'C:\\Users\\Administrator\\Downloads',
+    downloadFolder: 'C:\\Users\\wum\\Downloads',
 }
